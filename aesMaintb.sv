@@ -21,25 +21,20 @@
 
 
 module aesMaintb();
-    
+    reg [8*16-1:0] plain_text;
+    reg [8*16-1:0] key_text;
     reg [0:7] in [0:3][0:3];
     reg [0:7] key [0:3][0:3];
-    wire [0:7] out [0:3][0:3];
+    wire [7:0] out [0:15];
+    asciitohex cha(.plain_text(plain_text), .ascii_hex(in));
+    asciitohex ke(.plain_text(key_text), .ascii_hex(key));
     
     aesMain dut(.state(in), .key(key), .out(out));
     
     initial begin
-        in[0][0] = 8'h54; in[0][1] = 8'h4F; in[0][2] = 8'h4E; in[0][3] = 8'h20;
-        in[1][0] = 8'h77; in[1][1] = 8'h6E; in[1][2] = 8'h69; in[1][3] = 8'h54;
-        in[2][0] = 8'h6F; in[2][1] = 8'h65; in[2][2] = 8'h6E; in[2][3] = 8'h77;
-        in[3][0] = 8'h20; in[3][1] = 8'h20; in[3][2] = 8'h65; in[3][3] = 8'h6F;
-       
-        key[0][0] = 8'h54; key[0][1] = 8'h73; key[0][2] = 8'h20; key[0][3] = 8'h67;
-        key[1][0] = 8'h68; key[1][1] = 8'h20; key[1][2] = 8'h4B; key[1][3] = 8'h20;
-        key[2][0] = 8'h61; key[2][1] = 8'h6D; key[2][2] = 8'h75; key[2][3] = 8'h46;
-        key[3][0] = 8'h74; key[3][1] = 8'h79; key[3][2] = 8'h6E; key[3][3] = 8'h75; 
-        
-        #5;
-        $finish();
+         key_text = "Thats my Kung Fu";
+         plain_text = "Two One Nine Two";
+         #5;
+         $finish();
     end
 endmodule
