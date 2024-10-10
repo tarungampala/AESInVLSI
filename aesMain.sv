@@ -23,7 +23,7 @@
 module aesMain(
     input [7:0] state [0:3][0:3],
     input [7:0] key [0:3][0:3],
-    output [7:0] out [0:3][0:3]
+    output [7:0] out [0:15]
     );
     //round 0
     reg [7:0] r0 [0:3][0:3];
@@ -167,10 +167,22 @@ module aesMain(
     roundKeyGen rg10(.key(rgen9), .rnd(rnd9), .out(rgen10));
     roundkey rd10(.state(r10), .key(rgen10), .out(temp10));
     
-    assign out[0] = {temp10[0][0], temp10[1][0], temp10[2][0], temp10[3][0]};
-    assign out[1] = {temp10[0][1], temp10[1][1], temp10[2][1], temp10[3][1]};
-    assign out[2] = {temp10[0][2], temp10[1][2], temp10[2][2], temp10[3][2]};
-    assign out[3] = {temp10[0][3], temp10[1][3], temp10[2][3], temp10[3][3]};
+    assign out[0] = temp10[0][0];
+    assign out[1] = temp10[1][0]; 
+    assign out[2] = temp10[2][0]; 
+    assign out[3] = temp10[3][0];
+    assign out[4] = temp10[0][1];
+    assign out[5] = temp10[1][1]; 
+    assign out[6] = temp10[2][1]; 
+    assign out[7] = temp10[3][1];
+    assign out[8] = temp10[0][2];
+    assign out[9] = temp10[1][2]; 
+    assign out[10] = temp10[2][2];
+    assign out[11] = temp10[3][2];
+    assign out[12] = temp10[0][3];
+    assign out[13] = temp10[1][3];
+    assign out[14] = temp10[2][3]; 
+    assign out[15] = temp10[3][3];
     
     
 endmodule
